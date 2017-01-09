@@ -1,0 +1,6 @@
+Django==1.10.4
+django-modeltranslation==0.12
+django-webpack-loader==0.4.1
+djangorestframework==3.5.3
+olefile==0.43
+Pillow==4.0.0
