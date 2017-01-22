@@ -1,10 +1,14 @@
 from modeltranslation.translator import register, TranslationOptions
-from .models import Question, Choice
+from .models import Work, Role, Screenshot
 
-@register(Question)
-class QuestionTranslationOptions(TranslationOptions):
-    fields = ('question_text',)
+@register(Role)
+class RoleTranslationOptions(TranslationOptions):
+    fields = ('name',)
 
-@register(Choice)
-class ChoiceTranslationOptions(TranslationOptions):
-    fields = ('choice_text',)
+@register(Screenshot)
+class ScreenshotTranslationOptions(TranslationOptions):
+    fields = ('alt',)
+
+@register(Work)
+class WorkTranslationOptions(TranslationOptions):
+    fields = ('title','desc',)

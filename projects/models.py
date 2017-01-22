@@ -6,47 +6,34 @@ from django.utils import timezone
 from django.utils.translation import ugettext_lazy as _
 from django.utils.encoding import python_2_unicode_compatible
 
-
-@python_2_unicode_compatible  # only if you need to support Python 2
-class Question(models.Model):
-    question_text = models.CharField(max_length=200)
-    pub_date = models.DateTimeField('date published')
-
-    def __str__(self):
-        return _(self.question_text)
-
-    def was_published_recently(self):
-        now = timezone.now()
-        return now - datetime.timedelta(days=1) <= self.pub_date <= now
-    was_published_recently.admin_order_field = 'pub_date'
-    was_published_recently.boolean = True
-    was_published_recently.short_description = 'Published recently?'
-
-
-@python_2_unicode_compatible  # only if you need to support Python 2
-class Choice(models.Model):
-    question = models.ForeignKey(Question, on_delete=models.CASCADE)
-    choice_text = models.CharField(max_length=200)
-    votes = models.IntegerField(default=0)
-    def __str__(self):
-        return self.choice_text
-
 class Role(models.Model):
     name = models.CharField(max_length=200)
 
+    def __str__(self):
+        return self.name.encode('utf8')
+
 class Teamate(models.Model):
     name = models.CharField(max_length=200)
-    portfolio = models.URLField(max_length=200)
+    portfolio = models.URLField(max_length=200, blank=True)
     role = models.ForeignKey(Role)
+
+    def __str__(self):
+        return self.name.encode('utf8')
 
 class Techno(models.Model):
     name = models.CharField(max_length=200)
     image = models.ImageField(upload_to='technos/')
 
+    def __str__(self):
+        return self.name.encode('utf8')
+
 class Screenshot(models.Model):
-    href = models.CharField(max_length=200)
+    alt = models.CharField(max_length=200)
     image = models.ImageField(upload_to='screenshots/')
     portrait = models.BooleanField()
+
+    def __str__(self):
+        return self.alt.encode('utf8')
 
 class Work(models.Model):
     name = models.CharField(max_length=100)
@@ -58,8 +45,11 @@ class Work(models.Model):
     date = models.DateField()
     role = models.ForeignKey(Role)
     teamates = models.ManyToManyField(Teamate)
-    image_landscape = models.ManyToManyField(Screenshot, related_name='image_landscape')
-    image_portrait = models.ManyToManyField(Screenshot, related_name='image_portrait')
+    image_landscape = models.ManyToManyField(Screenshot, related_name='image_landscape', blank=True, null=True)
+    image_portrait = models.ManyToManyField(Screenshot, related_name='image_portrait', blank=True, null=True)
     responsive = models.NullBooleanField()
     link = models.URLField()
     color = models.CharField(max_length=7, default="#000000")
+
+    def __str__(self):
+        return self.name.encode('utf8')
