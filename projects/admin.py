@@ -1,7 +1,7 @@
 from django.contrib import admin
 from modeltranslation.admin import TranslationAdmin
 
-from .models import Role,Teamate,Techno,Work,Screenshot
+from .models import Role,Teamate,Techno,Work,Screenshot,People
 from .forms import WorkForm
 
 class WorkAdmin(admin.ModelAdmin):
@@ -10,6 +10,7 @@ class WorkAdmin(admin.ModelAdmin):
 
 
 admin.site.register(Role)
+admin.site.register(People)
 admin.site.register(Teamate)
 admin.site.register(Techno)
 admin.site.register(Screenshot)

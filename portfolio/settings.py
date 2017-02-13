@@ -120,7 +120,7 @@ LANGUAGES = (
     ('es', 'Espanol'),
 )
 
-MODELTRANSLATION_LANGUAGES = ('fr', 'es')
+MODELTRANSLATION_LANGUAGES = ('en','fr', 'es')
 
 
 TIME_ZONE = 'UTC'
