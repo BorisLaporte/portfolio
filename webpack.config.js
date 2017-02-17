@@ -1,57 +1,51 @@
-//require our dependencies
-var path = require('path')
-var webpack = require('webpack')
+var path = require("path")
 var BundleTracker = require('webpack-bundle-tracker')
 
+const ExtractTextPlugin = require("extract-text-webpack-plugin");
+
 module.exports = {
-    //the base directory (absolute path) for resolving the entry option
+    devtool: 'eval-source-map',
     context: __dirname,
-    //the entry point we created earlier. Note that './' means 
-    //your current directory. You don't have to specify the extension  now,
-    //because you will specify extensions later in the `resolve` section
-    entry: './static/js/index', 
-    
+
+    entry:  "./static/js/index.jsx",
     output: {
-        //where you want your compiled bundle to be stored
-        path: path.resolve('./static/bundles/'), 
-        //naming convention webpack should use for your files
-        filename: '[name]-[hash].js', 
+        path: path.resolve("./static/bundles"),
+        filename: "bundle.js"
     },
-    
-    plugins: [
-        //tells webpack where to store data about your bundles.
-        new BundleTracker({filename: './webpack-stats.json'}), 
-        //makes jQuery available in every module
-        new webpack.ProvidePlugin({ 
-            $: 'jquery',
-            jQuery: 'jquery',
-            'window.jQuery': 'jquery' 
-        })
-    ],
-    
+
     module: {
         loaders: [
-            //a regexp that tells webpack use the following loaders on all 
-            //.js and .jsx files
-            {test: /\.jsx?$/, 
-                //we definitely don't want babel to transpile all the files in 
-                //node_modules. That would take a long time.
-                exclude: /node_modules/, 
-                //use the babel loader 
-                loader: 'babel-loader', 
+            {
+                test: /\.jsx?$/,
+                exclude: /node_modules/,
+                loader: 'babel-loader',
                 query: {
-                    //specify that we will be dealing with React code
-                    presets: ['react'] 
+                    presets: ['es2015','react']
                 }
-            }
+            },
+        {
+            test: /\.scss$/,
+            loader: ExtractTextPlugin.extract({
+                // use style-loader in development
+                fallback: "style-loader",
+                use: ['css-loader', 'sass-loader']
+            })
+        }
         ]
     },
-    
-    resolve: {
-        //tells webpack where to look for modules
-        modulesDirectories: ['node_modules'],
-        //extensions that should be used to resolve modules
-        extensions: ['', '.js', '.jsx'] 
-    }   
-}
 
+    plugins: [
+        new BundleTracker({filename: './webpack-stats.json'}),
+        new ExtractTextPlugin({
+            filename: '[name].[id].style.css',
+            allChunks: true
+        })
+    ],
+
+    devServer: {
+        contentBase: "./static/bundles",
+        // colors: true,
+        historyApiFallback: true,
+        inline: true
+    } 
+}

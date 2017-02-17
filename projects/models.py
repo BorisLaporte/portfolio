@@ -6,11 +6,18 @@ from django.utils import timezone
 from django.utils.translation import ugettext_lazy as _
 from django.utils.encoding import python_2_unicode_compatible
 from PIL import Image
-import pdb
 from subprocess import call
 
-def pngquant(img):
-    call(["pngquant","--output", img, "--force", "--strip","--",img])
+def pngquant(img_path):
+    call(["pngquant","--output", img_path, "--force", "--strip","--",img_path])
+
+def compress_and_replace(_img):
+    type = _img.file.name.rsplit('.',1)[1]
+    if type.upper() in ("JPG", "JPEG"):
+        im = Image.open(_img)
+        im.save(_img.path, quality=80)
+    elif type.upper() in ("PNG"):
+        pngquant(_img.path)
 
 
 class Role(models.Model):
@@ -32,7 +39,7 @@ class Teamate(models.Model):
     role = models.ForeignKey(Role, null=True)
 
     def __unicode__(self):
-        return self.people.__unicode__()
+        return "%s / %s" % ( self.people.__unicode__(), self.role.__unicode__() )
 
 class Techno(models.Model):
     name = models.CharField(max_length=200)
@@ -48,42 +55,43 @@ class Techno(models.Model):
         self.__original_image = self.image
 
     def save(self, *args, **kwargs):
-        # if self.image != self.__original_image:
-        old = self.image
         super(Techno, self).save(*args, **kwargs)
-        type = self.image.file.name.rsplit('.',1)[1]
-        # pdb.set_trace()
-        if type.upper() in ("JPG", "JPEG"):
-            im = Image.open(self.image)
-            im.save(self.image.path, quality=80)
-        elif type.upper() in ("PNG"):
-            pngquant(self.image.path)
+
+        # COMPRESS IMAGE AND REPLACE IT
+        if self.image != self.__original_image:
+            compress_and_replace(self.image)
 
         self.__original_image = self.image
-
-class Screenshot(models.Model):
-    alt = models.CharField(max_length=200)
-    image = models.ImageField(upload_to='screenshots/')
-    portrait = models.BooleanField()
-
-    def __unicode__(self):
-        return self.alt
 
 class Work(models.Model):
     name = models.CharField(max_length=100)
     background = models.ImageField(upload_to='backgrounds/')
     title = models.CharField(max_length=200)
     desc = models.TextField()
-    technos = models.ManyToManyField(Techno)
     kind = models.CharField(max_length=200)
+    technos = models.ManyToManyField(Techno)
     date = models.DateField()
     role = models.ForeignKey(Role)
     teamates = models.ManyToManyField(Teamate)
-    image_landscape = models.ManyToManyField(Screenshot, related_name='image_landscape', blank=True)
-    image_portrait = models.ManyToManyField(Screenshot, related_name='image_portrait', blank=True)
     responsive = models.NullBooleanField()
     link = models.URLField()
     color = models.CharField(max_length=7, default="#000000")
+ 
 
     def __unicode__(self):
         return self.name
+
+    __original_background = None
+
+    def __init__(self, *args, **kwargs):
+        super(Work, self).__init__(*args, **kwargs)
+        self.__original_background = self.background
+
+    def save(self, *args, **kwargs):
+        super(Work, self).save(*args, **kwargs)
+
+        # COMPRESS IMAGE AND REPLACE IT
+        if self.background != self.__original_background:
+            compress_and_replace(self.background)
+
+        self.__original_background = self.background
