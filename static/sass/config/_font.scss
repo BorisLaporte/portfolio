@@ -1,0 +1,9 @@
+@include font-face(Mohave, "/static/font/Mohave-BoldItalic");
+
+// $Mohave = 'Mohave'
+
+@include font-face(PierSans-Reg, "/static/font/PierSans-Regular");
+@include font-face(PierSans-Bold, "/static/font/PierSans-Bold");
+
+$pier: "PierSans-Reg";
+$pierB: "PierSans-Bold"

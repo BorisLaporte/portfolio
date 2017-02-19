@@ -1,7 +1,16 @@
+@import 'config/_reset.scss';
+@import 'config/_mixin.scss';
 @import 'config/_colors.scss';
+@import 'config/_font.scss';
+
+@import 'parts/_contact.scss';
+@import 'parts/_description.scss';
+@import 'parts/_projects.scss';
 
 
 
-body{
-	background-color: $primary-color;
+.portfolio{
+	font-family: $pier;
+	font-size: 40px;
+	margin: 50px;
 }

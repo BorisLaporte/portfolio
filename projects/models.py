@@ -72,7 +72,7 @@ class Work(models.Model):
     technos = models.ManyToManyField(Techno)
     date = models.DateField()
     role = models.ForeignKey(Role)
-    teamates = models.ManyToManyField(Teamate)
+    teamates = models.ManyToManyField(Teamate, blank=True)
     responsive = models.NullBooleanField()
     link = models.URLField()
     color = models.CharField(max_length=7, default="#000000")

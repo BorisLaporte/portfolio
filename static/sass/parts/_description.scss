@@ -1,0 +1,29 @@
+.description{
+	position: relative;
+	width: 100%;
+	height: auto;
+
+	.bold{
+		font-size: 1.2em;
+		font-family: $pierB;
+	}
+
+	.crossed{
+		text-decoration: line-through;
+	}
+
+	.name{
+		font-family: $pierB;
+		font-size: 2.5em;
+	}
+
+	.student{
+		padding: 40px 0;
+
+	}
+
+	.content{
+		padding: 40px 0;
+
+	}
+}

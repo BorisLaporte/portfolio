@@ -1,1 +1,1 @@
-{"status":"done","chunks":{"main":[{"name":"bundle.js","path":"/home/moi/pyprojects/portfolio/static/bundles/bundle.js"},{"name":"main.0.style.css","path":"/home/moi/pyprojects/portfolio/static/bundles/main.0.style.css"}]}}
+{"status":"done","publicPath":"./static/bundles/","chunks":{"main":[{"name":"main.js","publicPath":"./static/bundles/main.js","path":"/home/moi/pyprojects/portfolio/static/bundles/main.js"},{"name":"main.style.css","publicPath":"./static/bundles/main.style.css","path":"/home/moi/pyprojects/portfolio/static/bundles/main.style.css"}]}}

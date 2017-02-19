@@ -1,51 +1,63 @@
-var path = require("path")
+//require our dependencies
+var path = require('path')
+var webpack = require('webpack')
 var BundleTracker = require('webpack-bundle-tracker')
-
-const ExtractTextPlugin = require("extract-text-webpack-plugin");
+const ExtractTextPlugin = require("extract-text-webpack-plugin")
 
 module.exports = {
-    devtool: 'eval-source-map',
+    //the base directory (absolute path) for resolving the entry option
     context: __dirname,
-
-    entry:  "./static/js/index.jsx",
+    //the entry point we created earlier. Note that './' means 
+    //your current directory. You don't have to specify the extension  now,
+    //because you will specify extensions later in the `resolve` section
+    entry: './static/js/index.jsx', 
+    
     output: {
-        path: path.resolve("./static/bundles"),
-        filename: "bundle.js"
+        //where you want your compiled bundle to be stored
+        path: path.resolve('./static/bundles/'), 
+        //naming convention webpack should use for your files
+        filename: '[name].js', 
+        publicPath: "./static/bundles/"
     },
-
-    module: {
-        loaders: [
-            {
-                test: /\.jsx?$/,
-                exclude: /node_modules/,
-                loader: 'babel-loader',
-                query: {
-                    presets: ['es2015','react']
-                }
-            },
-        {
-            test: /\.scss$/,
-            loader: ExtractTextPlugin.extract({
-                // use style-loader in development
-                fallback: "style-loader",
-                use: ['css-loader', 'sass-loader']
-            })
-        }
-        ]
-    },
-
+    
     plugins: [
-        new BundleTracker({filename: './webpack-stats.json'}),
+        //tells webpack where to store data about your bundles.
+        new BundleTracker({filename: './webpack-stats.json'}), 
+        //makes jQuery available in every module
+        new webpack.ProvidePlugin({ 
+            $: 'jquery',
+            jQuery: 'jquery',
+            'window.jQuery': 'jquery' 
+        }),
         new ExtractTextPlugin({
-            filename: '[name].[id].style.css',
+            filename: '[name].style.css',
             allChunks: true
         })
     ],
+    module: {
+        loaders: [
+            //a regexp that tells webpack use the following loaders on all 
+            //.js and .jsx files
+            {test: /\.jsx?$/, 
+                //we definitely don't want babel to transpile all the files in 
+                //node_modules. That would take a long time.
+                exclude: /node_modules/, 
+                //use the babel loader 
+                loader: 'babel-loader', 
+                query: {
+                    //specify that we will be dealing with React code
+                    presets: ['es2015','react'] 
+                }
+            },
+            {
+                test: /\.scss$/,
+                loader: ExtractTextPlugin.extract({
+                    // use style-loader in development
+                    fallback: "style-loader",
+                    use: ['css-loader', 'sass-loader']
+                })
+            },
 
-    devServer: {
-        contentBase: "./static/bundles",
-        // colors: true,
-        historyApiFallback: true,
-        inline: true
-    } 
+        ]
+    }  
 }

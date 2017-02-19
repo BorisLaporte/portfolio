@@ -1,9 +1,16 @@
-
-
 {% load render_bundle from webpack_loader %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+ 	{% render_bundle 'main' 'css' %}
+    <title>{% block title %}Boris' portfolio{% endblock %}</title>
+</head>
 
-<div id="container"></div>
+<body>
 
-{% render_bundle 'main' %} 
-
+	<div id="container"></div>
+	{% render_bundle 'main' 'js' %}
+	
+</body>
+</html>
 
