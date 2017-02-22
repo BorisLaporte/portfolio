@@ -1,11 +1,13 @@
 .description{
 	position: relative;
-	width: 100%;
+	width: 100vw;
 	height: auto;
+	padding: 20px;
 
-	.bold{
-		font-size: 1.2em;
+	.stressed{
 		font-family: $pierB;
+		font-size: 1.2em;
+		color: $aBlue;
 	}
 
 	.crossed{
@@ -13,17 +15,21 @@
 	}
 
 	.name{
-		font-family: $pierB;
-		font-size: 2.5em;
+		.stressed{
+			font-size: 1.8em;
+		}
+	}
+
+	.frag{
 	}
 
 	.student{
-		padding: 40px 0;
+		padding: 10px 0;
 
 	}
 
 	.content{
-		padding: 40px 0;
+		padding: 10px 0;
 
 	}
 }

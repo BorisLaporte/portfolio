@@ -1,0 +1,80 @@
+.works{
+	position: relative;
+	height: auto;
+	width: 100%;
+	overflow: hidden;
+
+	.list{
+		display: flex;
+		flex-wrap: nowrap;
+		width: auto;
+		height: 100%;
+
+		.one-work{
+			display: inline-block;
+			flex-shrink: 0;
+			width: 100vw;
+			height: 100%;
+
+			.project{
+				width: 200px;
+				height: 200px;
+				position: relative;
+				margin: auto;
+
+				.name{
+					z-index: 100;
+					text-align: center;
+					position: absolute;
+					display: inline-block;
+					font-family: $mohave;
+					font-size: 1.8em;
+					top: 50%;
+					left: 50%;
+					white-space: pre;
+					color: $white;
+					transform: translate(-50%, -50%) rotate(-10deg);
+				}
+
+				.background{
+					width: inherit;
+					height: inherit;
+					border-radius: 50%;
+					overflow: hidden;
+					position: absolute;
+					top: 50%;
+					left: 50%;
+					transform: translate3d(-50%, -50%, 0);
+
+					img{
+						width: inherit;
+						height: inherit;
+						object-fit: cover;
+					}
+				}
+			}
+
+			.technos{
+				display: flex;
+				justify-content: center;
+				align-items: center;
+
+				.one-techno{
+					padding: 10px;
+					margin: 10px;
+					width: 40px;
+					height: 40px;
+					position: relative;
+
+					img{
+						width: inherit;
+						height: inherit;
+						object-fit: contain;
+					}
+				}
+			}
+		}
+	}
+
+
+}
