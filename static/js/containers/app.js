@@ -4,6 +4,7 @@ import { fetchProjects } from '../store/projects/actions'
 import Preload from './preload/preload_react'
 import AppBody from './app_body'
 import {Loader} from '../components/loader'
+import RandCharBack from './rand-char-back/rand_char_back'
 
 class App extends Component {
   constructor(props) {
@@ -20,16 +21,15 @@ class App extends Component {
     const { data, loader, children } = this.props
     return (
     <div className="wrapper-portfolio">
+      <RandCharBack />
       <Preload 
-      data={data}
-      loader={<Loader/>}
-      children={ <AppBody/> } />
-      </div>
+       data={data}
+       loader={<Loader/>}
+       children={ <AppBody/> } />
+    </div>
     );
   }
 }
-
-
 
 App.propTypes = {
   data: PropTypes.array.isRequired,

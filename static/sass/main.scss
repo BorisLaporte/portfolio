@@ -3,6 +3,7 @@
 @import 'config/_colors.scss';
 @import 'config/_font.scss';
 
+@import 'parts/_rand-char-back.scss';
 @import 'parts/_contact.scss';
 @import 'parts/_description.scss';
 @import 'parts/_works.scss';
@@ -15,6 +16,9 @@
 	font-family: $pier;
 	font-size: 18px;
 	position: relative;
+  overflow: hidden;
+  width: 100vw;
+  height: 100vh;
 
 	.portfolio{
     display: flex;

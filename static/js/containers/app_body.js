@@ -1,6 +1,6 @@
 import React, { Component, PropTypes } from 'react'
 import Description from "../components/description/description"
-import Contact from "../components/contact/contact"
+import Contact from "./contact"
 import Works from "./works"
 
 export default class AppBody extends Component {

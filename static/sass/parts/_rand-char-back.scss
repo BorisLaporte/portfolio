@@ -1,0 +1,27 @@
+.rand-char-back{
+	width: 110vw;
+	height: 110vh;
+	top: 50%;
+	left: 50%;
+	transform: translate(-50%, -50%);
+	display: inline-block;
+	position: absolute;
+	font-family: $ubuntu;
+	font-size: 1.2em;
+	line-height: 1.1;
+	color: $aBlue;
+	opacity: 0.1;
+
+	.line{
+		width: inherit;
+		white-space: pre;
+	}
+
+	span{
+		display: inline-block;
+	}
+
+	&.testing{
+		opacity: 0;
+	}
+}
