@@ -8,7 +8,7 @@ export default class Project extends Component {
     this.state = {
       tl: null,
       updates: 0,
-      browsing: false
+      draging: false
     }
   }
 
@@ -24,13 +24,31 @@ export default class Project extends Component {
     const { project } = this.refs
     const { onFocus, link } = this.props
     const self = this
-    project.addEventListener('click', function(e){
+    // project.addEventListener('click', function(e){
+    //   e.preventDefault()
+    //   if ( !self.state.browsing ){
+    //     window.open(link, "_blank")
+    //   }
+    // })
+
+    project.addEventListener("mousedown", function( e ) {
+      self.state.draging = false
+    });
+
+    project.addEventListener("mousemove", function( e ) {
+      self.state.draging = true
+    });
+
+    project.addEventListener("mouseup", function( e ) {
       e.preventDefault()
-      if ( !self.state.browsing ){
+      if ( self.props.onFocus && !self.state.draging){
         window.open(link, "_blank")
       }
-    })
+      self.state.draging = false
+    });
   }
+
+
 
   componentWillUpdate(nextProps, nextState) {
     this.state.browsing = false
@@ -53,7 +71,7 @@ export default class Project extends Component {
     const { onFocus } = this.props 
     tl.clear()
     if ( onFocus && prevProps.onFocus != onFocus ){
-      const name_enter = new TweenLite.to(name, 0.5,
+      const name_enter = new TweenLite.to(name, 0.2,
         {
           opacity: 1,
           ease: Power2.easeOut,

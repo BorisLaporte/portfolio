@@ -9,7 +9,9 @@ class OneWork extends Component {
   constructor(props){
     super(props)
     this.state = {
-      onFocus: false
+      onFocus: false,
+      prevFocus: false,
+      draging: false
     }
   }
 
@@ -22,29 +24,56 @@ class OneWork extends Component {
   }
 
   componentDidMount() {
-    this.checkFocus(null)
+    this.checkFocus()
     this.bindClick()
   }
 
   componentDidUpdate(prevProps, prevState) {
-    this.checkFocus(prevState)
+    // console.log( this.props.data.name + " "  + prevState.onFocus + " " + this.state.prevFocus + " " + this.state.onFocus)
+    this.state.prevFocus = prevState.onFocus
+    this.checkFocus()
   }
 
   bindClick(){
     const { work } = this.refs
     const { pos, dispatch, data } = this.props
     const self = this
-    work.firstChild.addEventListener('mousedown', function(e){
+    // work.firstChild.addEventListener('mousedown', function(e){
+    //   e.preventDefault()
+    //   if ( !self.state.onFocus ){
+    //     dispatch(setNewIndex(pos))
+    //   }
+    // })
+
+    work.firstChild.addEventListener("mousedown", function( e ) {
+      self.state.draging = false
+    });
+
+    work.firstChild.addEventListener("mousemove", function( e ) {
+      self.state.draging = true
+    });
+
+    work.firstChild.addEventListener("mouseup", function( e ) {
       e.preventDefault()
-      if ( !self.state.onFocus ){
+      if ( !self.state.onFocus && !self.state.draging){
         dispatch(setNewIndex(pos))
-      } else {
-        // window.open(data.link, "_blank")
       }
+      self.state.draging = false
+    });
+
+    work.firstChild.addEventListener('click', function(e){
+      e.preventDefault()
+      // console.log( "click: " + self.props.data.name + " " + self.state.prevFocus + " " + self.state.onFocus)
+      // console.log( "props: " + self.props.index + " " + self.props.pos )
+      // // console.log("CLICCCCCCKKKKKKKKK")
+      // if ( !self.state.onFocus ){
+      //   dispatch(setNewIndex(pos))
+      // }
+      // console.log(self.state.draging)
     })
   }
 
-  checkFocus(prevState){
+  checkFocus(){
     const { work } = this.refs
     const { pos, index } = this.props
     if ( pos == index ){
