@@ -52,6 +52,10 @@
     	&.first{
     		justify-content: center;
         padding-right: 20px;
+
+        @include size-up{
+          padding-right: 60px;
+        }
     	}
 
     	&.second{
