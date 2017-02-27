@@ -57,14 +57,15 @@ class Works extends Component {
 	bindScroll(){
 		let safetyScroll = false
 		const self = this
-		this.refs.list_work.addEventListener('mousewheel', function(e){
+		window.addEventListener('mousewheel', function(e){
+			console.log(e)
 			e.stopPropagation()
 			e.preventDefault()
 			if ( !safetyScroll ){
 				let drct
-				if (e.wheelDelta < -50 ){
+				if (e.wheelDeltaY < -20 ){
 					drct = 1
-				} else if (e.wheelDelta > 50 ){
+				} else if (e.wheelDeltaY > 20 ){
 					drct = -1
 				}
 				self.state.tl.clear()
@@ -153,9 +154,8 @@ class Works extends Component {
 				})
 				break
 		} 
-		
-
 	}
+
 
 	hammerEnd(e){
 		let distance
