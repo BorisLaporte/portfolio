@@ -36,7 +36,7 @@ export function setNewIndex(index){
 export function fetchProjects() {
   return function (dispatch) {
     dispatch(requestProjects())
-    return fetch(window.location.href+"api/projects?lang=en")
+    return fetch("http://borislaporte.com/api/projects?lang=en")
       .then(response => response.json())
       .then(json =>
         dispatch(receiveProjects(json))
