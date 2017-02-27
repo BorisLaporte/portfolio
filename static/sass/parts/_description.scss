@@ -1,8 +1,27 @@
 .description{
 	position: relative;
-	width: 100vw;
+	width: auto;
 	height: auto;
 	padding: 20px;
+	max-width: 430px;
+
+	@media screen and ( min-width: 500px ) and ( orientation: portrait ) {
+			text-align: center;
+			left: 50%;
+			transform: translateX(-50%); 
+	}
+
+	@media (min-width: 701px)  {
+		padding: 40px;
+	}
+
+	@media screen and (min-height: 701px) {
+		padding: 20px 40px;
+	}
+
+	@media screen and (orientation: landscape) and (max-width: 700px){
+		max-width: 330px;
+	}
 
 	.stressed{
 		font-family: $pierB;
@@ -20,8 +39,11 @@
 		}
 	}
 
-	.frag{
-	}
+	// .frag{
+	// 	@media screen and ( min-width: 374px ) and ( orientation: portrait ) {
+	// 		display: block;
+	// 	}
+	// }
 
 	.student{
 		padding: 10px 0;
@@ -29,7 +51,7 @@
 	}
 
 	.content{
-		padding: 10px 0;
+		padding: 20px 0;
 
 	}
 }

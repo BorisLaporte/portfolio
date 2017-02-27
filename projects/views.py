@@ -17,7 +17,7 @@ def work_collection(request):
     if request.method == 'GET':
         try_change_language(request)
         try:
-            works = Work.objects.all()
+            works = Work.objects.all().order_by('order')
         except Work.DoesNotExist:
             return HttpResponse(status=404)
         serializer = WorkSerializer(works, many=True)

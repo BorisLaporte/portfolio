@@ -18,6 +18,20 @@ function receiveProjects(json) {
   }
 }
 
+export const CLICK_PROJECTS = 'CLICK_PROJECTS'
+
+function clickProjects(index){
+  return {
+    type: CLICK_PROJECTS,
+    index: index
+  }
+}
+
+export function setNewIndex(index){
+  return function (dispatch){
+    return dispatch(clickProjects(index))
+  }
+}
 
 export function fetchProjects() {
   return function (dispatch) {

@@ -1,0 +1,62 @@
+.loader{
+	font-family: $ubuntu;
+	width: 100vw;
+	height: 100vh;
+	position: absolute;
+	top: 0;
+	left: 0;
+	color: $aBlue;
+
+	.content{
+		position: absolute;
+		display: inline-block;
+		top: 50%;
+		left: 50%;
+		transform: translate(-50%, -50%);
+		text-align: center;
+		opacity: 1;
+
+		.gif{
+			font-size: 3em;
+			padding-bottom: 50px;
+			position: relative;
+			white-space: nowrap;
+
+			@include size-up{
+				font-size: 4em;
+			}
+
+			span{
+				display: inline-block;
+				position: relative;
+			}
+
+			.end{
+
+				&.left{
+					
+				}
+
+				&.right{
+					
+				}
+			}
+
+			.center{
+				width: 20vw;
+				max-width: 300px;
+				@media screen and (orientation: portrait) {
+					width: 40vw;
+				}
+
+				.symbol{
+					display: block;
+				}
+			}
+		}
+
+		.text{
+			font-size: 1em;
+		}
+	}
+}

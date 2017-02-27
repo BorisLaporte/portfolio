@@ -7,21 +7,32 @@
 		display: flex;
 		justify-content: center;
 		align-items: center;
+		@media (orientation: landscape) {
+			justify-content: flex-start;
+		}
+
+		@media screen and (min-width: 700px) {
+			padding: 0 20px;
+		}
 
 		li{
 			position: relative;
 			display: inline-block;
 			margin: 30px 15px;
 			color: $aBlue;
+			@media screen and ( min-width: 700px ) and ( min-height: 700px ) {
+		  	margin: 40px 20px;
+		  }
 
 			&.bubble{
-				padding: 10px;
+				padding: 15px;
 				border-radius: 50%;
 				background-color: $aBlue;
 				color: $white;
+				cursor: pointer;
 
 				.fa{
-					font-size: 1.5em;
+					font-size: 1.2em;
 				}
 			}
 

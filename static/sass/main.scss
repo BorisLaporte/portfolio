@@ -6,6 +6,7 @@
 @import 'parts/_rand-char-back.scss';
 @import 'parts/_contact.scss';
 @import 'parts/_description.scss';
+@import 'parts/_loader.scss';
 @import 'parts/_works.scss';
 
 @import 'font-awesome/font-awesome.scss';
@@ -20,12 +21,43 @@
   width: 100vw;
   height: 100vh;
 
+  @include size-up {
+  	font-size: 22px;
+  }
+
 	.portfolio{
     display: flex;
     flex-wrap: nowrap;
-    flex-direction: column;
-    justify-content: space-between;
-    height: 100vh;
+    width: inherit;
+    height: inherit;
+    @media (orientation: landscape){
+    	justify-content: center;
+    }
+
+    .column{
+    	height: 100vh;
+	    display: flex;
+	    flex-wrap: nowrap;
+	    flex-direction: column;
+	    justify-content: space-between;
+
+    	&.unique{
+				width: inherit;
+				max-height: 700px;
+				position: absolute;
+				top: 50%;
+				transform: translateY(-50%);
+    	}
+
+    	&.first{
+    		justify-content: center;
+        padding-right: 20px;
+    	}
+
+    	&.second{
+
+    	}
+    }
 	}
 }
 

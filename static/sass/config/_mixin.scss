@@ -42,3 +42,9 @@
 		src: $src;
 	}
 }
+
+@mixin size-up{
+	@media ( min-width: 700px ) and ( min-height: 700px ) {
+		@content;
+  }
+}

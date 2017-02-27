@@ -1,4 +1,6 @@
 .rand-char-back{
+	user-select: none;
+	cursor: default;
 	width: 110vw;
 	height: 110vh;
 	top: 50%;
@@ -8,17 +10,20 @@
 	position: absolute;
 	font-family: $ubuntu;
 	font-size: 1.2em;
-	line-height: 1.1;
+	line-height: 1;
 	color: $aBlue;
-	opacity: 0.1;
+	opacity: 0.15;
 
 	.line{
 		width: inherit;
 		white-space: pre;
+		display: flex;
+		flex-wrap: nowrap;
 	}
 
 	span{
 		display: inline-block;
+		flex-shrink: 0;
 	}
 
 	&.testing{

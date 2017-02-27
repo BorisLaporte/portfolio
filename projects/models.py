@@ -76,6 +76,7 @@ class Work(models.Model):
     responsive = models.NullBooleanField()
     link = models.URLField()
     color = models.CharField(max_length=7, default="#000000")
+    order = models.IntegerField(default=0)
  
 
     def __unicode__(self):
