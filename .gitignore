@@ -18,3 +18,4 @@ tests/report/
 media/
 db.sqlite3
 /static/bundles/
+/portfolio/settings.py
