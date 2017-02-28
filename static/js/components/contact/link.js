@@ -22,7 +22,7 @@ export default class Link extends Component {
   render() {
   	const { url, fa } = this.props
     return (
-      <a href={url} target="_blank" ><i ref="link" className={"fa "+fa} aria-hidden="true"></i></a>
+      <a href={url} target="_blank" ><i ref="link" className={"socials fa "+fa} aria-hidden="true"></i></a>
     )
   }
 }

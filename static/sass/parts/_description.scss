@@ -34,18 +34,14 @@
 	}
 
 	.name{
+		will-change: transform, opacity;
 		.stressed{
 			font-size: 1.8em;
 		}
 	}
 
-	// .frag{
-	// 	@media screen and ( min-width: 374px ) and ( orientation: portrait ) {
-	// 		display: block;
-	// 	}
-	// }
-
 	.student{
+		will-change: transform, opacity;
 		padding: 10px 0;
 
 		@include size-up{
@@ -55,6 +51,7 @@
 	}
 
 	.content{
+		will-change: transform, opacity;
 		padding: 20px 0;
 
 		@include size-up{

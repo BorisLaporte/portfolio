@@ -8,6 +8,7 @@
 	color: $aBlue;
 
 	.content{
+		will-change: opacity;
 		position: absolute;
 		display: inline-block;
 		top: 50%;
@@ -50,6 +51,7 @@
 				}
 
 				.symbol{
+					will-change: transform;
 					display: block;
 				}
 			}

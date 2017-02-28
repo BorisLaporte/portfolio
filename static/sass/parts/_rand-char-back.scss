@@ -1,4 +1,5 @@
 .rand-char-back{
+	will-change: opacity;
 	user-select: none;
 	cursor: default;
 	width: 100%;
@@ -9,7 +10,7 @@
 	font-size: 22px;
 	line-height: 1;
 	color: $aBlue;
-	opacity: 0.1;
+	opacity: 0.2;
 
 	span{
 		position: absolute;

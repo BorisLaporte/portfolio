@@ -261,7 +261,7 @@ class Works extends Component {
   	const { index } = this.props
     return (
      	<div className="works">
-     		<div className={"list "+orientation} ref="list_work">
+     		<div className={"list"} ref="list_work">
        		{ data.map(function(object, i){
        			let focus = false
        			if ( index == i ){
