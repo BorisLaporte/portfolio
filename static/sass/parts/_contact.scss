@@ -30,9 +30,14 @@
 				background-color: $aBlue;
 				color: $white;
 				cursor: pointer;
+				will-change: transform, opacity;
 
 				.fa{
 					font-size: 1.2em;
+				}
+
+				.socials{
+					will-change: transform, opacity;
 				}
 			}
 

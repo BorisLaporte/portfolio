@@ -1,5 +1,6 @@
 import React, { PropTypes, Component } from 'react'
 import { connect } from 'react-redux'
+import gsap from 'gsap'
 
 class RandCharBack extends Component {
 	constructor(props){
@@ -20,12 +21,12 @@ class RandCharBack extends Component {
 	componentDidMount() {
 		this.genALL()
 		this.launchAnim()
+		this.entranceAnim()
 	}
 
 	componentDidUpdate(prevProps, prevState) {
 		const {loop} = this.state
 		clearTimeout(loop)
-
 		this.genALL()
 		this.launchAnim()
 	}
@@ -35,11 +36,13 @@ class RandCharBack extends Component {
 		clearTimeout(loop)
 	}
 
-	clearAllTimeouts(){
-		const {loop} = this.state
-		for ( let i = 0; i < loop.length; i++ ){
-			clearTimeout(loop[i])
-		}
+	entranceAnim(){
+		const tl = new TimelineLite()
+		const {background} = this.refs
+		tl.from(background, 1, {
+			opacity: 0,
+			ease: Power2.easeOut	
+		})
 	}
 
 	getSpecs(){
