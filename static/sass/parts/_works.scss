@@ -2,10 +2,14 @@
 	position: relative;
 	height: auto;
 	width: 100%;
+
+	@media (orientation: landscape){
+		height: 100%;
+	}
+
 	@include size-up{
 		@media (orientation: landscape){
 			padding: 0 30px;
-			height: 100%;
 		}
 		@media (orientation: portrait) {
 			padding: 40px 0;
@@ -15,6 +19,7 @@
 	.list{
 		will-change: transform, opacity;
 		display: flex;
+		height: auto;
 		flex-wrap: nowrap;
 		position: relative;
 		width: auto;
