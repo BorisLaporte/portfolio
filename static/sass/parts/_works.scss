@@ -5,6 +5,7 @@
 	@include size-up{
 		@media (orientation: landscape){
 			padding: 0 30px;
+			height: 100%;
 		}
 		@media (orientation: portrait) {
 			padding: 40px 0;
@@ -14,14 +15,12 @@
 	.list{
 		display: flex;
 		flex-wrap: nowrap;
+		position: relative;
 		width: auto;
 		@media (orientation: landscape){
-			height: 100vh;
+			height: 100%;
 			flex-direction: column
 		}
-
-		// left: 50%;
-		// transform: translateX(-50%);
 
 		.one-work{
 			position: relative;
@@ -29,20 +28,20 @@
 			flex-shrink: 0;
 			
 			@media (orientation: landscape){
-				height: 100vh;
+				height: 100%;
 			 	@media (min-height: 600px ){
-					height: 50vh;
+					height: 50%;
 					&:nth-child(1){
 						margin-top: 25vh;
 					}
 				}
 			}
 			@media (orientation: portrait){
-				width: 100vw;
+				width: 100%;
 				@media ( min-width: 600px ){
-					width: 50vw;
+					width: 50%;
 					&:nth-child(1){
-						margin-left: 25vw;
+						margin-left: 25%;
 					}
 				}
 			}

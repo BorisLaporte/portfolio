@@ -2,7 +2,7 @@ import React, { Component, PropTypes } from 'react';
 import { connect } from 'react-redux'
 import { fetchProjects } from '../store/projects/actions'
 import { getWindowSize, PORTRAIT, LANDSCAPE } from '../store/responsive/actions'
-import Preload from './preload/preload_react'
+import PreloadReact from './preload/preload_react'
 import AppBody from './app_body'
 import Loader from '../components/loader'
 import RandCharBack from './rand-char-back/rand_char_back'
@@ -37,7 +37,7 @@ class App extends Component {
     return (
     <div className="wrapper-portfolio">
       <RandCharBack />
-      <Preload 
+      <PreloadReact 
        data={data}
        loader={<Loader/>}
        children={<AppBody/>} />

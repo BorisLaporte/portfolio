@@ -10,7 +10,7 @@ class RandCharBack extends Component {
 			charHeight: 0,
 			char: "azertyuiopqsdfghjklmwxcvbnAZERTYUIOPQSDFGHJKLMWXCVBN1234567890<>?;/:!§ù%*µ$£ø^+=})]@àç\_è|-[({#é~&",
 			pickRate: 0.4,
-			interval: 20,
+			interval: 10,
 			content: null,
 			loop: null,
 			ctx: null
@@ -124,8 +124,7 @@ class RandCharBack extends Component {
 		const {specs, ctx} = this.state
 		const {width, height} = this.props
 		const times = Math.ceil(specs.columns * 0.05)
-		const interval = this.state.interval 
-		// * ( Math.random() + 0.5 )
+		const interval = this.state.interval
 		this.state.loop = setTimeout(function(){
 			ctx.clearRect(0, 0, width, height)
 			for (let i = 0; i < times; i++){

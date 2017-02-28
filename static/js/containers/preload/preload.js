@@ -1,5 +1,5 @@
 export default class Prelaod {
-	constructor(img, onSuccess, limitTime = 3000, onFailure = null, percentage = null){
+	constructor(img, onSuccess, limitTime = 6000, onFailure = null, percentage = null){
     this.onSuccess = onSuccess
     this.onFailure = onFailure
     this.percentage = percentage
@@ -28,8 +28,8 @@ export default class Prelaod {
 
   updateStatus(self, img){
   	self.imgDone.push(img)
-
   	let status = ( self.imgDone.length / self.imgToDownload.length )
+
   	if ( self.percentage ){
   		self.percentage(status)
   	}

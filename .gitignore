@@ -19,5 +19,6 @@ media/
 db.sqlite3
 /static/bundles/
 /portfolio/settings.py
-webpack-stats.json
-npm-debug.log
+**/webpack-stats.json
+**/npm-debug.log
+**/.DS_Store
