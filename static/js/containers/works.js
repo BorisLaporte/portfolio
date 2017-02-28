@@ -11,13 +11,12 @@ class Works extends Component {
 	constructor(props){
 		super(props)
 		this.state = {
-			index: 0,
 			tl: null
 		}
 	}
 
 	shouldComponentUpdate(nextProps, nextState){
-		if ( nextProps != this.props || nextState.index != this.state.index ){
+		if ( nextProps != this.props ){
 			return true
 		} else {
 			return false
@@ -29,8 +28,18 @@ class Works extends Component {
 		this.state.tl = new TimelineLite()
 		this.initHammer()
 		this.bindOthers()
+		if ( this.props.index > 0 ){
+			this.goToDest()
+		}
 		this.entranceAnim()
-		
+	}
+
+	componentDidUpdate(prevProps, prevState) {
+		if ( prevProps.index != this.props.index ){
+		} else if ( prevProps.orientation != this.props.orientation ) {
+			this.entranceAnim()
+		}
+		this.goToDest()
 	}
 
 	entranceAnim(){
@@ -48,17 +57,6 @@ class Works extends Component {
 		this.bindScroll()
 	}
 
-	componentDidUpdate(prevProps, prevState) {
-		if ( (prevProps.index != this.props.index) && (this.props.index != this.state.index) ){
-			this.state.index = this.props.index
-			this.goToDest()
-		} else if ( prevProps.orientation != this.props.orientation ) {
-			// console.log("props")
-			this.entranceAnim()
-			// this.state.index = this.props.index
-			this.goToDest()
-		}
-	}
 
 	bindScroll(){
 		let safetyScroll = false
@@ -192,12 +190,11 @@ class Works extends Component {
 			default:
 				break
 		}
-		return ( -1 * this.state.index ) * factor
+		return ( -1 * this.props.index ) * factor
 	}
 
 	goBack(){
-		const { dispatch } = this.props
-		const { index } = this.state
+		const { dispatch, index } = this.props
 		dispatch(setNewIndex(index))
 		this.goToDest()
 	}
@@ -223,16 +220,14 @@ class Works extends Component {
 	}
 
 	goTo(e, drct = null){
-		const { dispatch } = this.props
+		const { dispatch, index, data } = this.props
 		if ( drct === null ){
 			drct = this.convertDirection(e)
 		}
-			const new_index = this.state.index + drct
-			if ( new_index >= 0 && new_index < this.props.data.length){
-				this.setState({index: this.state.index + drct})
+			const new_index = index + drct
+			if ( new_index >= 0 && new_index < data.length){
+				dispatch(setNewIndex(new_index))
 			}
-		const { index } = this.state
-		dispatch(setNewIndex(index))
 
 		this.goToDest()
 	}
@@ -263,7 +258,7 @@ class Works extends Component {
 
   render(){
   	const { data, orientation } = this.props
-  	const { index } = this.state
+  	const { index } = this.props
     return (
      	<div className="works">
      		<div className={"list "+orientation} ref="list_work">
