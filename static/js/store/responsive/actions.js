@@ -15,7 +15,6 @@ export function getWindowSize(){
 	return function (dispatch) {
     const width = window.innerWidth
     const height = window.innerHeight
- 
     let orientation
     let compareForWorksStage
     if (height <= width){ 
@@ -32,11 +31,6 @@ export function getWindowSize(){
     } else {
       works_stage = 2
     }
-    // } else if ( compareForWorksStage > 600 && compareForWorksStage <= 1000 ){
-    //   works_stage = 2
-    // } else {
-    //   works_stage = 3
-    // }
 
     dispatch(resizing(width, height, orientation, works_stage))
   }
