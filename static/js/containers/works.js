@@ -25,10 +25,12 @@ class Works extends Component {
 	}
 
 	componentDidMount(){
+		const self = this
 		this.state.tl = new TimelineLite()
 		this.initHammer()
 		this.bindOthers()
 		this.entranceAnim()
+		
 	}
 
 	entranceAnim(){
@@ -47,9 +49,13 @@ class Works extends Component {
 	}
 
 	componentDidUpdate(prevProps, prevState) {
-		// console.log(prevProps.index + " " + this.props.index + " " + this.state.index)
 		if ( (prevProps.index != this.props.index) && (this.props.index != this.state.index) ){
 			this.state.index = this.props.index
+			this.goToDest()
+		} else if ( prevProps.orientation != this.props.orientation ) {
+			// console.log("props")
+			this.entranceAnim()
+			// this.state.index = this.props.index
 			this.goToDest()
 		}
 	}
@@ -58,14 +64,13 @@ class Works extends Component {
 		let safetyScroll = false
 		const self = this
 		window.addEventListener('mousewheel', function(e){
-			console.log(e)
 			e.stopPropagation()
 			e.preventDefault()
 			if ( !safetyScroll ){
 				let drct
-				if (e.wheelDeltaY < -20 ){
+				if (e.wheelDeltaY < -40 ){
 					drct = 1
-				} else if (e.wheelDeltaY > 20 ){
+				} else if (e.wheelDeltaY > 40 ){
 					drct = -1
 				}
 				self.state.tl.clear()
@@ -73,7 +78,7 @@ class Works extends Component {
 				safetyScroll = true
 				setTimeout(function() {
 					safetyScroll = false
-				}, 300);
+				}, 400);
 			}
 		});
 	}
