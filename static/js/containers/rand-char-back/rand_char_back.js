@@ -26,14 +26,14 @@ class RandCharBack extends Component {
 
 	componentDidUpdate(prevProps, prevState) {
 		const {loop} = this.state
-		clearTimeout(loop)
+		window.cancelAnimationFrame(loop)
 		this.genALL()
 		this.launchAnim()
 	}
 
 	componentWillUnmount() {
 		const {loop} = this.state
-		clearTimeout(loop)
+		window.cancelAnimationFrame(loop)
 	}
 
 	entranceAnim(){
@@ -73,15 +73,23 @@ class RandCharBack extends Component {
 	}
 
 	setCanvasDetails(){
+		const {canvas} = this.refs
+		const {width, height} = this.props
 		const ctx = this.state.ctx = canvas.getContext('2d')
-		ctx.font = "22px UbuntuMono-Bold"
+		// if ( width > 900 && height > 900 ){
+		// 	ctx.font = "34px UbuntuMono-Bold"
+		// } else if ( width > 700 && height > 700  ) {
+		// 	ctx.font = "28px UbuntuMono-Bold"
+		// } else {
+			ctx.font = "22px UbuntuMono-Bold"
+		// }
 		ctx.fillStyle = "#0081D5";
 		return ctx
 	}
 
 	fillLineCanvas(ctx, text, line){
 		const {charWidth, charHeight} = this.state
-		ctx.fillText(text, -charWidth, ( charHeight * line ) - charHeight )
+		ctx.fillText(text, 0, ( charHeight * line ) )
 	}
 
 	fillAllCanvas(ctx, text){
@@ -111,42 +119,36 @@ class RandCharBack extends Component {
 
 	changeChars(line){
 		const {specs, content} = this.state
-		const ctx = this.setCanvasDetails()
-		const times = Math.ceil(line * 0.05)
+		const times = Math.ceil(line * 0.2)
 		let newContent = content.slice()
 		for ( let i = 0; i < times; i++ ){
 			const index = Math.floor(Math.random() * content[line].length)
 			newContent[line] = this.replaceChar(newContent[line], index, this.getOneChar())
 		}
-		this.fillAllCanvas(ctx, newContent)
 		this.state.content = newContent
 	}
 
+
 	launchAnim(){
-		const self = this
 		const {specs, ctx} = this.state
 		const {width, height} = this.props
-		const times = Math.ceil(specs.columns * 0.05)
-		const interval = this.state.interval
-		this.state.loop = setTimeout(function(){
-			ctx.clearRect(0, 0, width, height)
-			for (let i = 0; i < times; i++){
-				const lineRand = Math.floor( Math.random() * specs.lines )
-				self.changeChars(lineRand)
-			}
-			self.launchAnim()
-		}, interval)
+		const times = Math.ceil(specs.columns * 0.1)
+		for (let i = 0; i < times; i++){
+			const lineRand = Math.floor( Math.random() * specs.lines )
+			this.changeChars(lineRand)
+		}
+		ctx.clearRect(0, 0, width, height)
+		this.fillAllCanvas(ctx, this.state.content)
+		this.state.loop = window.requestAnimationFrame(this.launchAnim.bind(this))
 	}
 
 	render() {
 		const testing = ( this.state.content ? " " : <span>a</span> )
 		const {width, height} = this.props
-		const widthUp = width * 1.1
-		const heightUp = height * 1.1
 		return (
 			<div className={"rand-char-back"} ref="background">
 				{ testing }
-				<canvas id="canvas" ref="canvas" width={widthUp} height={heightUp} ></canvas>
+				<canvas id="canvas" ref="canvas" width={width} height={height}  ></canvas>
 			</div>
 		);
 	}
