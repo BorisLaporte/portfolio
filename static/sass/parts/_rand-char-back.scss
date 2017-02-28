@@ -1,29 +1,20 @@
 .rand-char-back{
 	user-select: none;
 	cursor: default;
-	width: 110vw;
-	height: 110vh;
-	top: 50%;
-	left: 50%;
-	transform: translate(-50%, -50%);
+	width: 100%;
+	height: 100%;
 	display: inline-block;
 	position: absolute;
 	font-family: $ubuntu;
-	font-size: 1.2em;
+	font-size: 22px;
 	line-height: 1;
 	color: $aBlue;
-	opacity: 0.15;
-
-	.line{
-		width: inherit;
-		white-space: pre;
-		display: flex;
-		flex-wrap: nowrap;
-	}
+	opacity: 0.1;
 
 	span{
+		position: absolute;
+		opacity: 0;
 		display: inline-block;
-		flex-shrink: 0;
 	}
 
 	&.testing{
