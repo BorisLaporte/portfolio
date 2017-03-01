@@ -26,7 +26,7 @@ export const sortImgPath = (data, urlPrefix = "", imgs = []) => {
       if ( crawlable.lastIndexOf(typeof _el) != -1 ){
         imgs = sortImgPath(_el, urlPrefix, imgs)
       } else if ( isPathImg(_el) ) {
-        imgs.push(_el)
+        imgs.push(urlPrefix + _el)
       }
     })
     return imgs

@@ -8,7 +8,6 @@ export default class PreloadReact extends React.Component {
   constructor(props){
     super(props)
     this.state = {
-      prefixUrl: window.location.href.substring(1),
       ready: false
     }
   }
@@ -23,7 +22,7 @@ export default class PreloadReact extends React.Component {
 
   componentDidUpdate(){
     if ( this.props.data.length > 0 && !this.state.ready){
-      let img = sortImgPath(this.props.data, this.state.prefixUrl)
+      let img = sortImgPath(this.props.data, this.props.prefixUrl)
       new Preload(img, this.setState({ready: true}))
     }
   }

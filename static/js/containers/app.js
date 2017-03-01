@@ -40,7 +40,9 @@ class App extends Component {
       <PreloadReact 
        data={data}
        loader={<Loader/>}
-       children={<AppBody/>} />
+       children={<AppBody/>}
+       prefixUrl={"http://borislaporte.com"}
+        />
     </div>
     );
   }
