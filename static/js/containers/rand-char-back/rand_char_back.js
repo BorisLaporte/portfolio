@@ -11,7 +11,6 @@ class RandCharBack extends Component {
 			charHeight: 0,
 			char: "azertyuiopqsdfghjklmwxcvbnAZERTYUIOPQSDFGHJKLMWXCVBN1234567890<>?;/:!§ù%*µ$£ø^+=})]@àç\_è|-[({#é~&",
 			pickRate: 0.4,
-			interval: 10,
 			content: null,
 			loop: null,
 			ctx: null
@@ -76,13 +75,7 @@ class RandCharBack extends Component {
 		const {canvas} = this.refs
 		const {width, height} = this.props
 		const ctx = this.state.ctx = canvas.getContext('2d')
-		// if ( width > 900 && height > 900 ){
-		// 	ctx.font = "34px UbuntuMono-Bold"
-		// } else if ( width > 700 && height > 700  ) {
-		// 	ctx.font = "28px UbuntuMono-Bold"
-		// } else {
-			ctx.font = "22px UbuntuMono-Bold"
-		// }
+		ctx.font = "22px UbuntuMono-Bold"
 		ctx.fillStyle = "#0081D5";
 		return ctx
 	}
@@ -119,7 +112,7 @@ class RandCharBack extends Component {
 
 	changeChars(line){
 		const {specs, content} = this.state
-		const times = Math.ceil(line * 0.2)
+		const times = Math.ceil(line * 0.1)
 		let newContent = content.slice()
 		for ( let i = 0; i < times; i++ ){
 			const index = Math.floor(Math.random() * content[line].length)
@@ -132,7 +125,7 @@ class RandCharBack extends Component {
 	launchAnim(){
 		const {specs, ctx} = this.state
 		const {width, height} = this.props
-		const times = Math.ceil(specs.columns * 0.1)
+		const times = Math.ceil(specs.columns * 0.05)
 		for (let i = 0; i < times; i++){
 			const lineRand = Math.floor( Math.random() * specs.lines )
 			this.changeChars(lineRand)
