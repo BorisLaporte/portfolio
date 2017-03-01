@@ -15,10 +15,8 @@ export default class Prelaod {
     for (var i=0; i < this.imgToDownload.length; i++){
         images[i] = new Image()
         images[i].src = imgArray[i]
-        console.log(images[i])
         images[i].addEventListener('load', this.updateStatus(this, images[i]))
     }
-    // console.log(images)
   }
 
   safetyTimeout(time){
