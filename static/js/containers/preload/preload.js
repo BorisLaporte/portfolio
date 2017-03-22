@@ -14,8 +14,8 @@ export default class Prelaod {
     let images = []
     for (var i=0; i < this.imgToDownload.length; i++){
         images[i] = new Image()
+        images[i].onload = this.updateStatus.bind(this, images[i])
         images[i].src = imgArray[i]
-        images[i].addEventListener('load', this.updateStatus(this, images[i]))
     }
   }
 
@@ -26,17 +26,15 @@ export default class Prelaod {
     }, time)
   }
 
-  updateStatus(self, img){
-  	self.imgDone.push(img)
-  	let status = ( self.imgDone.length / self.imgToDownload.length )
-
-  	if ( self.percentage ){
-  		self.percentage(status)
-  	}
-
-  	if ( status === 1 ){
-  		clearTimeout(self.timeout)
-  		self.onSuccess
-  	}
+  updateStatus(img){
+    this.imgDone.push(img)
+    let status = ( this.imgDone.length / this.imgToDownload.length )
+    if ( this.percentage ){
+      this.percentage(status)
+    }
+    if ( status === 1 ){
+      clearTimeout(this.timeout)
+      this.onSuccess()
+    }
   }
 }

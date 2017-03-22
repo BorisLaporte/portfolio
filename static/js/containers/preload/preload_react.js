@@ -10,6 +10,7 @@ export default class PreloadReact extends React.Component {
     this.state = {
       ready: false
     }
+    this.letsGo = this.letsGo.bind(this)
   }
 
   shouldComponentUpdate(nextProps, nextState){
@@ -23,8 +24,12 @@ export default class PreloadReact extends React.Component {
   componentDidUpdate(){
     if ( this.props.data.length > 0 && !this.state.ready){
       let img = sortImgPath(this.props.data, this.props.prefixUrl)
-      new Preload(img, this.setState({ready: true}))
+      new Preload(img, this.letsGo)
     }
+  }
+
+  letsGo(){
+    this.setState({ready: true})
   }
 
   render(){

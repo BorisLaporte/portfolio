@@ -26,9 +26,12 @@ class Works extends Component {
 		}
 	}
 
+	componentWillMount() {
+    this.setState({tl: new TimelineLite()})
+  }
+
 	componentDidMount(){
 		const self = this
-		this.state.tl = new TimelineLite()
 		this.initHammer()
 		this.bindOthers()
 		if ( this.props.index > 0 ){
@@ -39,7 +42,6 @@ class Works extends Component {
 
 	componentDidUpdate(prevProps, prevState) {
 		const {index, orientation} = this.props
-		console.log("update")
 		if ( prevProps.index != index ){
 		} else if ( prevProps.orientation != orientation ) {
 			this.entranceAnim()
@@ -64,7 +66,7 @@ class Works extends Component {
 		window.addEventListener('wheel', this.onScroll)
 	}
 
-	componentWillMount() {
+	componentWillUnmount() {
 		window.removeEventListener('wheel', this.onScroll)
 	}
 
@@ -85,6 +87,7 @@ class Works extends Component {
 	scrollToNext(e, drct){
 		const {scroll} = this.state
 		const self = this
+		const {tl} = this.state
 		this.goTo(e, drct)
 		this.setState({isScrolling: true})
 		clearTimeout(scroll)
@@ -99,7 +102,7 @@ class Works extends Component {
 	bindKeyboard(){
 		const self = this
 		$(document).keydown(function(e) {
-			self.state.tl.clear()
+			// self.state.tl.clear()
     	switch(e.which) {
         case 37: // left
         	self.goTo(e, -1)
@@ -142,7 +145,7 @@ class Works extends Component {
 			]})
 
 		mc.on('panend pancancel panmove', function(e){
-			self.state.tl.clear()
+			// self.state.tl.clear()
 			switch(e.type){
 				case "panend":
 				case "pancancel":
@@ -158,15 +161,19 @@ class Works extends Component {
 	}
 
 	hammerMove(e){
-		switch (this.props.orientation){
+		const {tl} = this.state
+		const {orientation} = this.props
+		const {list_work} = this.refs
+		tl.clear()
+		switch (orientation){
 			case LANDSCAPE:
-				this.state.tl.set(this.refs.list_work,
+				tl.set(list_work,
 				{
 					y: e.deltaY
 				})
 				break
 			case PORTRAIT:
-				this.state.tl.set(this.refs.list_work,
+				tl.set(list_work,
 				{
 					x: e.deltaX
 				})
@@ -176,8 +183,9 @@ class Works extends Component {
 
 
 	hammerEnd(e){
+		const {orientation} = this.props
 		let distance
-		switch (this.props.orientation){
+		switch (orientation){
 			case LANDSCAPE:
 				distance = $(window).height()
 				break
@@ -189,13 +197,14 @@ class Works extends Component {
 		if ( e.distance > ( 0.5 * ( distance / 2 )) ){
 			this.goTo(e)
 		} else {
-			this.goBack()
+			this.goToDest()
 		}
 	}
 
 	calcDest(){
 		let factor
-		switch (this.props.works_stage){
+		const {works_stage, index} = this.props
+		switch (works_stage){
 			case 1:
 				factor = 100
 				break
@@ -205,35 +214,33 @@ class Works extends Component {
 			default:
 				break
 		}
-		return ( -1 * this.props.index ) * factor
-	}
-
-	goBack(){
-		const { dispatch, index } = this.props
-		dispatch(setNewIndex(index))
-		this.goToDest()
+		return ( -1 * index ) * factor
 	}
 
 	goToDest(){
 		const {tl} = this.state
 		const {list_work} = this.refs
+		const {orientation} = this.props
 		const dest = this.calcDest()
-		switch (this.props.orientation){
+		tl.clear()
+		let tween
+		switch (orientation){
 			case LANDSCAPE:
-				tl.to(list_work, 0.5,
+				tween = new TweenLite.to(list_work, 0.7,
 				{
 					y: dest+"%",
 					ease: Power2.easeOut
 				})
 				break
 			case PORTRAIT:
-				tl.to(list_work, 0.5,
+				tween = new TweenLite.to(list_work, 0.7,
 				{
 					x: dest+"%",
 					ease: Power2.easeOut
 				})
 				break
 		}
+		tl.add([tween])
 	}
 
 	goTo(e, drct = null){
@@ -244,6 +251,8 @@ class Works extends Component {
 			const new_index = index + drct
 			if ( new_index >= 0 && new_index < data.length){
 				dispatch(setNewIndex(new_index))
+			} else {
+				this.goToDest()
 			}
 
 		// this.goToDest()
