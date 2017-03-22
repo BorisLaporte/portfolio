@@ -97,7 +97,7 @@ export default class Project extends Component {
         })
       const background_leaving = new TweenLite.to(background, 0.8,
         {
-          scale: 0.7,
+          scale: 0.6,
           ease: Power2.easeOut,
           delay: delay
         })

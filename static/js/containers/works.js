@@ -11,8 +11,11 @@ class Works extends Component {
 	constructor(props){
 		super(props)
 		this.state = {
-			tl: null
+			tl: null,
+			isScrolling: false,
+			scroll: null
 		}
+		this.onScroll = this.onScroll.bind(this)
 	}
 
 	shouldComponentUpdate(nextProps, nextState){
@@ -35,8 +38,10 @@ class Works extends Component {
 	}
 
 	componentDidUpdate(prevProps, prevState) {
-		if ( prevProps.index != this.props.index ){
-		} else if ( prevProps.orientation != this.props.orientation ) {
+		const {index, orientation} = this.props
+		console.log("update")
+		if ( prevProps.index != index ){
+		} else if ( prevProps.orientation != orientation ) {
 			this.entranceAnim()
 		}
 		this.goToDest()
@@ -52,34 +57,44 @@ class Works extends Component {
 		})
 	}
 
+	
+
 	bindOthers(){
 		this.bindKeyboard()
-		this.bindScroll()
+		window.addEventListener('wheel', this.onScroll)
+	}
+
+	componentWillMount() {
+		window.removeEventListener('wheel', this.onScroll)
 	}
 
 
-	bindScroll(){
-		let safetyScroll = false
+	onScroll(e){
+		const {deltaY} = e
+    const {isScrolling} = this.state
+    if ( !isScrolling ){
+      if ( deltaY >= 30 ){
+      	this.scrollToNext(e, 1)
+      } else if ( deltaY <= -30 ){
+      	this.scrollToNext(e, -1)
+      }
+
+    }
+	}
+
+	scrollToNext(e, drct){
+		const {scroll} = this.state
 		const self = this
-		window.addEventListener('mousewheel', function(e){
-			e.stopPropagation()
-			e.preventDefault()
-			if ( !safetyScroll ){
-				let drct
-				if (e.wheelDeltaY < -40 ){
-					drct = 1
-				} else if (e.wheelDeltaY > 40 ){
-					drct = -1
-				}
-				self.state.tl.clear()
-				self.goTo(e, drct)
-				safetyScroll = true
-				setTimeout(function() {
-					safetyScroll = false
-				}, 400);
-			}
-		});
+		this.goTo(e, drct)
+		this.setState({isScrolling: true})
+		clearTimeout(scroll)
+		const newScroll = setTimeout(function() {
+      self.setState({isScrolling: false})
+    }, 500 )
+    this.setState({scroll: newScroll})
 	}
+
+
 
 	bindKeyboard(){
 		const self = this
@@ -200,17 +215,19 @@ class Works extends Component {
 	}
 
 	goToDest(){
+		const {tl} = this.state
+		const {list_work} = this.refs
 		const dest = this.calcDest()
 		switch (this.props.orientation){
 			case LANDSCAPE:
-				this.state.tl.to(this.refs.list_work, 0.5,
+				tl.to(list_work, 0.5,
 				{
 					y: dest+"%",
 					ease: Power2.easeOut
 				})
 				break
 			case PORTRAIT:
-				this.state.tl.to(this.refs.list_work, 0.5,
+				tl.to(list_work, 0.5,
 				{
 					x: dest+"%",
 					ease: Power2.easeOut
@@ -229,7 +246,7 @@ class Works extends Component {
 				dispatch(setNewIndex(new_index))
 			}
 
-		this.goToDest()
+		// this.goToDest()
 	}
 
 	convertDirection(e){
