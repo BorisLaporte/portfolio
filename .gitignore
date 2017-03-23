@@ -17,7 +17,10 @@ build/
 tests/report/
 media/
 db.sqlite3
-/static/bundles/
+static/bundles/
+static/admin
+static/rest_framework
+static/modeltranslation
 portfolioenv/
 portfolio/settings.py
 **/webpack-stats.json
