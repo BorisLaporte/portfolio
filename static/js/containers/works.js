@@ -75,9 +75,9 @@ class Works extends Component {
 		const {deltaY} = e
     const {isScrolling} = this.state
     if ( !isScrolling ){
-      if ( deltaY >= 30 ){
+      if ( deltaY >= 20 ){
       	this.scrollToNext(e, 1)
-      } else if ( deltaY <= -30 ){
+      } else if ( deltaY <= -20 ){
       	this.scrollToNext(e, -1)
       }
 
