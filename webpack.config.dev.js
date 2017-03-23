@@ -1,7 +1,7 @@
 //require our dependencies
-var path = require('path')
-var webpack = require('webpack')
-var BundleTracker = require('webpack-bundle-tracker')
+const path = require('path')
+const webpack = require('webpack')
+const BundleTracker = require('webpack-bundle-tracker')
 const ExtractTextPlugin = require("extract-text-webpack-plugin")
 
 module.exports = {
@@ -29,6 +29,9 @@ module.exports = {
             jQuery: 'jquery',
             'window.jQuery': 'jquery' 
         }),
+        new webpack.DefinePlugin({
+          'process.env.NODE_ENV': JSON.stringify('development')
+        }),
         new ExtractTextPlugin({
             filename: '[name].style.css',
             allChunks: true
@@ -46,16 +49,22 @@ module.exports = {
         loaders: [
             //a regexp that tells webpack use the following loaders on all 
             //.js and .jsx files
-            {test: /\.jsx?$/, 
+            {
+              test: /\.jsx?$/, 
                 //we definitely don't want babel to transpile all the files in 
                 //node_modules. That would take a long time.
                 exclude: /node_modules/, 
                 //use the babel loader 
-                loader: 'babel-loader', 
+                loader: 'babel-loader',
                 query: {
-                    //specify that we will be dealing with React code
-                    presets: ['es2015','react'] 
+                  //specify that we will be dealing with React code
+                  presets: ['es2015','react'] 
                 }
+            },
+            {
+              test: /\.(eot|svg|ttf|otf|woff|woff2)$/,
+              loader: 'file-loader?name=./static/bundles/fonts/[name].[ext]',
+              include: path.join(__dirname, './static/font')
             },
             {
                 test: /\.scss$/,
