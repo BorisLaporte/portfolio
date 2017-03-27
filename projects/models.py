@@ -8,8 +8,11 @@ from django.utils.encoding import python_2_unicode_compatible
 from PIL import Image
 from subprocess import call
 
-def pngquant(img_path):
-    call(["pngquant","--output", img_path, "--force", "--strip","--",img_path])
+import pdb
+
+# def pngquant(img_path):
+    # call(["pngquant","--output", img_path, "--force", "--strip","--",img_path])
+    
 
 def compress_and_replace(_img):
     type = _img.file.name.rsplit('.',1)[1]
@@ -17,7 +20,10 @@ def compress_and_replace(_img):
         im = Image.open(_img)
         im.save(_img.path, quality=80)
     elif type.upper() in ("PNG"):
-        pngquant(_img.path)
+        im = Image.open(_img)
+        im.save(_img.path, quality=80)
+        # pngquant(_img.path)
+        # quant_image(_img.path)
 
 
 class Role(models.Model):

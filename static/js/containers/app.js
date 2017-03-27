@@ -34,6 +34,7 @@ class App extends Component {
 
   render(){
     const { data, loader, children } = this.props
+    const prefix = window.location.origin
     return (
     <div className="wrapper-portfolio">
       <RandCharBack />
@@ -41,7 +42,7 @@ class App extends Component {
        data={data}
        loader={<Loader/>}
        children={<AppBody/>}
-       prefixUrl={"http://borislaporte.com"}
+       prefixUrl={prefix}
         />
     </div>
     );
