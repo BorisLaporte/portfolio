@@ -7,6 +7,7 @@
 .tox/
 __pycache__
 MANIFEST
+env_portfolio/
 dist/
 docs/_build/
 docs/locale/
